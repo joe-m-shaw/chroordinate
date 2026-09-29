@@ -1,0 +1,23 @@
+Package: chroordinate
+Title: Organise Chromosomes and Coordinates
+Version: 0.0.0.9000
+Authors@R: 
+    person("Joe M.", "Shaw", , "joseph.shaw2@mft.nhs.uk", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0002-5089-751X"))
+Description: chroordinate allows you to coordinate chromosome coordinates during data analysis.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Suggests: 
+    knitr,
+    quarto,
+    testthat (>= 3.0.0),
+    ggplot2,
+    readr,
+    readxl
+VignetteBuilder: quarto
+Imports: 
+    dplyr,
+    stringr
+Config/testthat/edition: 3

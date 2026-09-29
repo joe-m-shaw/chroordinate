@@ -1,0 +1,213 @@
+---
+title: "Working with chromosomes"
+vignette: >
+  %\VignetteIndexEntry{Working with chromosomes}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r}
+#| label: setup
+#| warning: FALSE
+#| message: FALSE
+library(chroordinate)
+library(readr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+```
+
+Chromosome names can be difficult to work with for the following reasons:
+
+1. They are a mixture of numbers (1-22) and letters (X and Y). This can make
+automatic assigning of data types difficult.
+
+2. They are ordered - it is traditional to present chromosomes in the order
+1-22 followed by the X and Y chromosomes.
+
+3. They can be inconsistently formatted. For example the "chromosome" column
+of a table may contain information written as "1", 1, "chr1", "1p" etc.
+
+`chroordinate` is designed to assist with some of these issues.
+
+## Reading chromosome names from Excel files
+
+Here is an example of a small Excel file containing a column of chromosome information
+for autosomes 1-6. We can read it into R using `read_excel`.
+
+```{r}
+
+chr_excel_short_autosomes <- read_excel(path = "data/chr_short_autosomes.xlsx",
+                              col_types = "guess")
+
+knitr::kable(chr_excel_short_autosomes)
+
+```
+
+As col_types is set to "guess", `read_excel` notes that there are only numbers
+in the "chromosome" column and so assigns the "numeric" data type.
+
+```{r}
+
+typeof(chr_excel_short_autosomes$chromosome)
+
+unique(chr_excel_short_autosomes$chromosome)
+
+```
+
+If the Excel file also contains information on the X and Y chromosomes, then
+`read_excel` notes that there are 
+both numbers (autosomes) and letters (sex
+chromosomes) in the column and so chooses type "character".
+
+```{r}
+
+chr_excel_short_all <- read_excel(path = "data/chr_short_all.xlsx",
+                              col_types = "guess")
+
+knitr::kable(chr_excel_short_all)
+
+```
+
+```{r}
+
+typeof(chr_excel_short_all$chromosome)
+
+unique(chr_excel_short_all$chromosome)
+
+```
+
+```{r}
+#| eval: FALSE
+#| include: FALSE
+
+# Code for generating long dataframe
+
+autosome_df <- data.frame(
+  "chromosome" = c(rep(seq(from = 1, to = 22, by = 1), 
+                       times = 100))) |> 
+  arrange(chromosome) 
+
+sex_chrom_df <- data.frame(
+  "chromosome" = c(rep("X", times = 100),
+                   rep("Y", times = 100)))
+
+chr_df_long <- rbind(autosome_df, sex_chrom_df) |> 
+  mutate(region = row_number(),
+         coverage = round(runif(n = 2400, min = 800, max = 1000), 0))
+
+```
+
+This behaviour then changes if the Excel is very long, which is common for
+large genetic datasets from next generation sequencing.
+In this examples, autosomes are listed first in 
+the Excel and rows for sex chromosomes only appear after ~2000 rows.
+This is a problem, because the "guess" argument checks only the first 1000 rows,
+and decides that "chromosome" will be data type numeric.
+The sex chromosomes are then converted into NA, with warnings given
+(suppressed in this vignette).
+
+```{r}
+#| warning: FALSE
+
+chr_excel_long_guess <- read_excel(path = "data/chr_long.xlsx",
+                              col_types = "guess")
+
+typeof(chr_excel_long_guess$chromosome)
+
+unique(chr_excel_long_guess$chromosome)
+
+```
+
+One option is to specify that the chromosome column is type "text" when
+reading the file in.
+
+```{r}
+
+chr_excel_long_text <- read_excel(path = "data/chr_long.xlsx",
+                              col_types = c("text", "numeric", "numeric"))
+
+typeof(chr_excel_long_text$chromosome)
+
+unique(chr_excel_long_text$chromosome)
+
+```
+
+This solves the problem of the missing sex chromosomes.
+But it introduces a new problem that the chromosomes are not ordered correctly
+when plotted: chromosome 10 is ordered after chromosome 1.
+
+```{r}
+
+ggplot(chr_excel_long_text, aes(x = chromosome, y = coverage)) +
+  geom_boxplot() +
+  theme_bw()
+
+```
+
+`chroordinate` can be used to solve this issue by specifying the col_type as
+"text" and then converting the chromosome column into a factor using
+`factorise_chromosome`.
+
+```{r}
+
+chr_excel_long_factor <- read_excel(path = "data/chr_long.xlsx",
+                              col_types = c("text", "numeric", "numeric")) |> 
+  mutate(chromosome = factorise_chromosome(chromosome))
+
+typeof(chr_excel_long_factor$chromosome)
+
+str(chr_excel_long_factor$chromosome)
+
+
+```
+
+This means that the chromosomes are in the correct ordered when plotted.
+
+```{r}
+
+ggplot(chr_excel_long_factor, aes(x = chromosome, y = coverage)) +
+  geom_boxplot() +
+  theme_bw()
+
+```
+
+## Reading chromosome names from CSV files
+
+Unlike `readxl`, the `guess_max` argument in `read_csv` checks 1000 rows spread
+throughout the file, not just the first 1000 rows.
+This means that sex chromosomes are not converted into NAs, even if the file
+is long and col_types are guessed.
+
+```{r}
+
+chr_csv_long <- read_csv(file = "data/chr_long.csv",
+                         col_types = "?")
+
+typeof(chr_csv_long$chromosome)
+
+unique(chr_csv_long$chromosome)
+
+```
+
+However this still leaves the issue of chromosome ordering,
+which can be solved by supplying the correct order as `levels_chromosomes`
+within the col_types argument.
+
+```{r}
+
+chr_csv_long_factor <- read_csv(file = "data/chr_long.csv",
+                         col_types = list(
+                           "chromosome" = col_factor(levels = levels_chromosomes()$all)
+                         ))
+
+ggplot(chr_csv_long_factor, aes(x = chromosome, y = coverage)) +
+  geom_boxplot() +
+  theme_bw()
+
+```

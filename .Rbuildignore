@@ -1,0 +1,6 @@
+^chroordinate\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^vignettes/\.quarto$
+^vignettes/*_files$
