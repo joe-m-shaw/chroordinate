@@ -23,14 +23,14 @@ regex_region <- function() {
         r"[
         (|complement\()
         (\d{1,9})      # first coordinate number (1 to 9 digits)
-        \.\.           # two full stops
-        (\d{1,9})      # second coordinate number (1 to 9 digits)
+        (\.\.|\^|-|_|)  # two full stops, ^, -, _ or nothing
+        (\d{1,9}|)     # second coordinate number (1 to 9 digits) or nothing
         ]",
         comments = TRUE
       ),
 
       "start_group" = 2,
-      "end_group" = 3
+      "end_group" = 4
       )
   )
 
