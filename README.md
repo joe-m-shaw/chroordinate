@@ -18,3 +18,9 @@ You can install the development version of chroordinate from
 # install.packages("pak")
 pak::pak("joe-m-shaw/chroordinate")
 ```
+
+## Naming convention
+
+In `chroordinate` chromosomes are referred to as “chromosome” for
+clarity, instead of “chr” (which can be mistaken for meaning
+“character”) or “chrom”.
