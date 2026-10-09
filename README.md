@@ -23,4 +23,5 @@ pak::pak("joe-m-shaw/chroordinate")
 
 In `chroordinate` chromosomes are referred to as “chromosome” for
 clarity, instead of “chr” (which can be mistaken for meaning
-“character”) or “chrom”.
+“character”) or “chrom”. For the second coordinate in a location,
+`chroordinate` uses “end” not “stop”.

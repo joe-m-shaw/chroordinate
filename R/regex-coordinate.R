@@ -2,7 +2,7 @@
 #'
 #' Descriptions of genomic regions are often given as character strings rather
 #' than as separate columns of start and end coordinates.
-#' `regex_region` contains regular expressions for describing different formats
+#' `regex_coordinate` contains regular expressions for describing different formats
 #' of character string, to allow start and end coordinates to be easily
 #' extracted.
 #'
@@ -11,10 +11,10 @@
 #'
 #' @examples
 #' stringr::str_extract(string = "1234..5678",
-#' pattern = regex_region()$clc$regex,
-#' group = regex_region()$clc$start)
+#' pattern = regex_coordinate()$clc$regex,
+#' group = regex_coordinate()$clc$start)
 #'
-regex_region <- function() {
+regex_coordinate <- function() {
 
   output_list <- list(
     "clc" = list(
@@ -22,16 +22,16 @@ regex_region <- function() {
       "regex" = stringr::regex(
         r"[
         (|complement\()
-        (\d{1,9})      # first coordinate number (1 to 9 digits)
-        (\.\.|\^|-|_|)  # two full stops, ^, -, _ or nothing
-        (\d{1,9}|)     # second coordinate number (1 to 9 digits) or nothing
+        (\d{1,9})            # first coordinate number (1 to 9 digits)
+        (\.\.|\^|-|_|\s|:|)  # separators
+        (\d{1,9}|)           # second coordinate number (1 to 9 digits) or nothing
         ]",
         comments = TRUE
       ),
 
       "start_group" = 2,
       "end_group" = 4
-      )
+    )
   )
 
   return(output_list)

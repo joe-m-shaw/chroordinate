@@ -19,5 +19,6 @@ Suggests:
 VignetteBuilder: quarto
 Imports: 
     dplyr,
-    stringr
+    stringr,
+    tibble
 Config/testthat/edition: 3
