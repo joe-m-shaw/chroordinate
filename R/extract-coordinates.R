@@ -13,9 +13,17 @@
 #'
 extract_coordinates <- function(x) {
 
+  if (any(!is.character(x))) stop("x must be a string")
+
+  if (any(trimws(x) == "")) stop("x must not be empty or contain only whitespace")
+
   coordinates <- stringr::str_extract_all(x, "\\d{1,9}")[[1]]
 
   large_coordinates <- stringr::str_extract(x, pattern = "\\d{10,}")
+
+  if(!is.na(large_coordinates)){
+    stop(paste0("Input contains numbers more than 9 digits long. Chromosome coordinates should not be this long: ", large_coordinates))
+  }
 
   output_list <- list(
     "start" = as.numeric(coordinates[1]),

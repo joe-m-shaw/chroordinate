@@ -49,3 +49,18 @@ test_that("complement format handled", {
                     "end"= 234567890))
 
 })
+
+test_that("input over 9 digits long produces error", {
+  expect_error(extract_coordinates("1234567890..1234"),
+               "Input contains numbers more than 9 digits long. Chromosome coordinates should not be this long: 1234567890")
+})
+
+test_that("argument checking works", {
+
+  expect_error(extract_coordinates(1234),
+               "x must be a string")
+
+  expect_error(extract_coordinates(""),
+               "x must not be empty or contain only whitespace")
+
+})

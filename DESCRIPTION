@@ -15,10 +15,10 @@ Suggests:
     testthat (>= 3.0.0),
     ggplot2,
     readr,
-    readxl
+    readxl,
+    tibble
 VignetteBuilder: quarto
 Imports: 
     dplyr,
-    stringr,
-    tibble
+    stringr
 Config/testthat/edition: 3

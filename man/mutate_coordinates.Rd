@@ -16,15 +16,22 @@ The dataframe with coordinates extracted into "start" and "end"
 columns
 }
 \description{
-Add genomic coordinates in separate columns of a dataframe
+\code{mutate_coordinates} is intended to separate genomic coordinates that are
+listed in a single character string within a dataframe column, which
+is often the case for copy
+number variant coordinates, target regions or primer locations.
+\code{mutate_coordinates} also will work when the column contains a mix
+of single coordinate and paired coordinate strings, which can happen
+when the locations of different variant types are listed in the same
+column (such as single nucleotide variants and indels, see example).
 }
 \examples{
 
 test_df <- tibble::tribble(
-~"region",
-"1",
-"1..3",
-"123456789..234567890")
+~"gene", ~"variant", ~"region",
+"GENE1", "c.1A>G", "1",
+"GENE1", "c.1delATG", "1..3",
+"GENE1", "c.123_456dup", "123456789..234567890")
 
 test_df |> mutate_coordinates(coord_col = region)
 
