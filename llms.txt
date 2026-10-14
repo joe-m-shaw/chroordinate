@@ -1,0 +1,47 @@
+# chroordinate
+
+chroordinate allows you to coordinate chromosome coordinates during data
+analysis.
+
+## Installation
+
+You can install the development version of chroordinate from
+[GitHub](https://github.com/) with:
+
+``` r
+
+# install.packages("pak")
+pak::pak("joe-m-shaw/chroordinate")
+```
+
+## Naming convention
+
+In `chroordinate` chromosomes are referred to as “chromosome” for
+clarity, instead of “chr” (which can be mistaken for meaning
+“character”) or “chrom”. For the second coordinate in a location,
+`chroordinate` uses “end” not “stop”.
+
+## Logo
+
+The `chroordinate` logo uses an icon from FlatIcon made by
+[Magnific](https://www.flaticon.com/free-icon/genetics_5685648?term=chromosome&related_id=5685648).
+
+# Package index
+
+## All functions
+
+- [`extract_coordinates()`](https://joe-m-shaw.github.io/chroordinate/reference/extract_coordinates.md)
+  : Extract genomic coordinates from a string
+- [`factorise_chromosome()`](https://joe-m-shaw.github.io/chroordinate/reference/factorise_chromosome.md)
+  : Convert human chromosomes into factors
+- [`levels_chromosomes()`](https://joe-m-shaw.github.io/chroordinate/reference/levels_chromosomes.md)
+  : Factor levels for human chromosomes
+- [`mutate_coordinates()`](https://joe-m-shaw.github.io/chroordinate/reference/mutate_coordinates.md)
+  : Add genomic coordinates in separate columns of a dataframe
+
+# Articles
+
+### All vignettes
+
+- [Working with chromosomes in
+  R](https://joe-m-shaw.github.io/chroordinate/articles/chromosomes.md):
