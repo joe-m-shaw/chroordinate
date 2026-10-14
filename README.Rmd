@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # chroordinate <a href="https://joe-m-shaw.github.io/chroordinate/"><img src="man/figures/logo.png" align="right" height="138" alt="chroordinate website" /></a>
 
 <!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/joe-m-shaw/chroordinate/graph/badge.svg)](https://app.codecov.io/gh/joe-m-shaw/chroordinate)
 <!-- badges: end -->
 
 chroordinate allows you to coordinate chromosome coordinates during data analysis.
