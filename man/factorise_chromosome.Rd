@@ -7,7 +7,8 @@
 factorise_chromosome(x)
 }
 \arguments{
-\item{x}{Character string or character vector}
+\item{x}{Character string or numeric or vector of chromosomes in the format
+1, 2 ... X, Y.}
 }
 \value{
 The input formatted as a factor with consistent chromosome levels.

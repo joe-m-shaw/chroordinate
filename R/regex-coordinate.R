@@ -21,16 +21,16 @@ regex_coordinate <- function() {
 
       "regex" = stringr::regex(
         r"[
-        (|complement\()
-        (\d{1,9})            # first coordinate number (1 to 9 digits)
-        (\.\.|\^|-|_|\s|:|)  # separators
-        (\d{1,9}|)           # second coordinate number (1 to 9 digits) or nothing
+        (\d{1,9})           # first coordinate number (1 to 9 digits)
+        (\D+)
+        (\d{1,9})           # second coordinate number (1 to 9 digits)
+        (\D+|$)
         ]",
         comments = TRUE
       ),
 
-      "start_group" = 2,
-      "end_group" = 4
+      "start_group" = 1,
+      "end_group" = 3
     )
   )
 

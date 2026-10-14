@@ -29,12 +29,8 @@ mutate_coordinates <- function(df, coord_col){
 
   output <- df |>
     dplyr::rowwise() |>
-    dplyr::mutate(start = extract_coordinate(x = {{ coord_col }},
-                                             location = "start",
-                                             type = "numeric"),
-                  end = extract_coordinate(x = {{ coord_col }},
-                                               location = "end",
-                                               type = "numeric")) |>
+    dplyr::mutate(start = extract_coordinates({{ coord_col }})[["start"]],
+                  end = extract_coordinates({{ coord_col }})[["end"]]) |>
     dplyr::ungroup()
 
   return(output)
