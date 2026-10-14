@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# chroordinate <a href="https://joe-m-shaw.github.io/chroordinate/"><img src="man/figures/logo.png" align="right" height="138" alt="chroordinate website" /></a>
+# chroordinate <a href="https://joe-m-shaw.github.io/chroordinate/"><img src="man/figures/logo.png" align="right" height="250" alt="chroordinate website" /></a>
 
 <!-- badges: start -->
 

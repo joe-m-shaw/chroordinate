@@ -10,9 +10,6 @@ on:
 
 name: pkgdown.yaml
 
-template:
-  bootstrap: 5
-
 permissions: read-all
 
 jobs:
