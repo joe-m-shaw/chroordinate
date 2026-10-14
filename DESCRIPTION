@@ -22,3 +22,4 @@ Imports:
     dplyr,
     stringr
 Config/testthat/edition: 3
+URL: https://joe-m-shaw.github.io/chroordinate/

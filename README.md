@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# chroordinate
+# chroordinate <a href="https://joe-m-shaw.github.io/chroordinate/"><img src="man/figures/logo.png" align="right" height="138" alt="chroordinate website" /></a>
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -25,3 +25,8 @@ In `chroordinate` chromosomes are referred to as “chromosome” for
 clarity, instead of “chr” (which can be mistaken for meaning
 “character”) or “chrom”. For the second coordinate in a location,
 `chroordinate` uses “end” not “stop”.
+
+## Logo
+
+The `chroordinate` logo uses an icon from FlatIcon made by
+[Magnific](https://www.flaticon.com/free-icon/genetics_5685648?term=chromosome&related_id=5685648).
