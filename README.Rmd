@@ -30,6 +30,32 @@ You can install the development version of chroordinate from [GitHub](https://gi
 pak::pak("joe-m-shaw/chroordinate")
 ```
 
+## Usage
+
+`chroordinate` makes it easier to work with chromosome coordinates during data
+analysis. For example, in cases where multiple descriptions of chromosome
+coordinates are included in the same column, the `mutate_coordinates` function
+extracts the coordinates into two separate columns.
+
+```{r, echo = FALSE}
+
+test_df <- tibble::tribble(
+  ~"gene", ~"variant", ~"region",
+  "GENE1", "SNV", "12345",
+  "GENE1", "CNV", "12345..12348",
+  "GENE1", "Indel", "12345^23456")
+
+knitr::kable(test_df)
+
+```
+
+```{r, include = TRUE}
+
+test_df |> 
+  chroordinate::mutate_coordinates(region)
+
+```
+
 ## Naming convention
 
 In `chroordinate` chromosomes are referred to as "chromosome" for clarity, instead
