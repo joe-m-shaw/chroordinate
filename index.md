@@ -14,6 +14,33 @@ You can install the development version of chroordinate from
 pak::pak("joe-m-shaw/chroordinate")
 ```
 
+## Usage
+
+`chroordinate` makes it easier to work with chromosome coordinates
+during data analysis. For example, in cases where multiple descriptions
+of chromosome coordinates are included in the same column, the
+`mutate_coordinates` function extracts the coordinates into two separate
+columns.
+
+| gene  | variant | region       |
+|:------|:--------|:-------------|
+| GENE1 | SNV     | 12345        |
+| GENE1 | CNV     | 12345..12348 |
+| GENE1 | Indel   | 12345^23456  |
+
+``` r
+
+
+test_df |> 
+  chroordinate::mutate_coordinates(region)
+#> # A tibble: 3 × 5
+#>   gene  variant region       start   end
+#>   <chr> <chr>   <chr>        <dbl> <dbl>
+#> 1 GENE1 SNV     12345        12345    NA
+#> 2 GENE1 CNV     12345..12348 12345 12348
+#> 3 GENE1 Indel   12345^23456  12345 23456
+```
+
 ## Naming convention
 
 In `chroordinate` chromosomes are referred to as “chromosome” for

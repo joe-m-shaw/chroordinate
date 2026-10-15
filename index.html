@@ -69,6 +69,45 @@
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"joe-m-shaw/chroordinate"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
+<p><code>chroordinate</code> makes it easier to work with chromosome coordinates during data analysis. For example, in cases where multiple descriptions of chromosome coordinates are included in the same column, the <code>mutate_coordinates</code> function extracts the coordinates into two separate columns.</p>
+<table class="table">
+<thead><tr>
+<th align="left">gene</th>
+<th align="left">variant</th>
+<th align="left">region</th>
+</tr></thead>
+<tbody>
+<tr>
+<td align="left">GENE1</td>
+<td align="left">SNV</td>
+<td align="left">12345</td>
+</tr>
+<tr>
+<td align="left">GENE1</td>
+<td align="left">CNV</td>
+<td align="left">12345..12348</td>
+</tr>
+<tr>
+<td align="left">GENE1</td>
+<td align="left">Indel</td>
+<td align="left">12345^23456</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="va">test_df</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">chroordinate</span><span class="fu">::</span><span class="fu"><a href="reference/mutate_coordinates.html">mutate_coordinates</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 3 × 5</span></span>
+<span><span class="co">#&gt;   gene  variant region       start   end</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 GENE1 SNV     12345        12345    NA</span></span>
+<span><span class="co">#&gt; 2 GENE1 CNV     12345..12348 12345 12348</span></span>
+<span><span class="co">#&gt; 3 GENE1 Indel   12345^23456  12345 23456</span></span></code></pre></div>
+</div>
+<div class="section level2">
 <h2 id="naming-convention">Naming convention<a class="anchor" aria-label="anchor" href="#naming-convention"></a>
 </h2>
 <p>In <code>chroordinate</code> chromosomes are referred to as “chromosome” for clarity, instead of “chr” (which can be mistaken for meaning “character”) or “chrom”. For the second coordinate in a location, <code>chroordinate</code> uses “end” not “stop”.</p>
